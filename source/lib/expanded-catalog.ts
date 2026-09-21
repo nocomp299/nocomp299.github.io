@@ -1,7 +1,7 @@
 import type { Molecule } from './chemistry';
 type Edge=[number,number,number];
 // Define the heavy-atom skeleton; fill only the normal neutral valences with hydrogen.
-function saturated(id:string,name:string,english:string,formula:string,description:string,heavy:string[],skeleton:Edge[],family:string):Molecule{
+export function saturated(id:string,name:string,english:string,formula:string,description:string,heavy:string[],skeleton:Edge[],family:string):Molecule{
  const atoms=[...heavy],edges:Edge[]=skeleton.map(e=>[...e]);const valence:Record<string,number>={C:4,N:3,O:2,F:1,Cl:1,Br:1,I:1,S:2};
  heavy.forEach((s,i)=>{const used=skeleton.reduce((sum,e)=>sum+((e[0]===i||e[1]===i)?e[2]:0),0);for(let h=used;h<valence[s];h++){edges.push([i,atoms.length,1]);atoms.push('H');}});
  return {id,name,english,formula,description,atoms,edges,family};

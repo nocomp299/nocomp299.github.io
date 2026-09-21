@@ -1,4 +1,5 @@
 import { EXTRA_MOLECULES } from "./expanded-catalog.ts";
+import { ISOMER_MOLECULES } from "./isomer-catalog.ts";
 export type Atom = { id: string; symbol: string; x: number; y: number };
 export type Bond = { a: string; b: string; order: number };
 export type Graph = { atoms: Atom[]; bonds: Bond[] };
@@ -32,7 +33,7 @@ export const MOLECULES: Molecule[] = [
   m("ethanol","에탄올","Ethanol","C₂H₅OH","탄소–탄소–산소 순서로 연결된 알코올입니다. 다이메틸 에터와 원자 수가 같아도 구조가 다릅니다.",["C","C","O","H","H","H","H","H","H"],[[0,1,1],[1,2,1],[0,3,1],[0,4,1],[0,5,1],[1,6,1],[1,7,1],[2,8,1]],"탄소 화합물"),
   m("dimethyl-ether","다이메틸 에터","Dimethyl ether","CH₃OCH₃","산소가 탄소 둘 사이를 연결합니다. 에탄올과 분자식이 같은 구조 이성질체입니다.",["C","O","C","H","H","H","H","H","H"],[[0,1,1],[1,2,1],[0,3,1],[0,4,1],[0,5,1],[2,6,1],[2,7,1],[2,8,1]],"탄소 화합물"),
   m("acetic-acid","아세트산","Acetic acid","CH₃COOH","식초의 신맛을 내는 물질. 탄소 두 개와 산소 두 개로 뼈대를 만듭니다.",["C","C","O","O","H","H","H","H"],[[0,1,1],[1,2,2],[1,3,1],[0,4,1],[0,5,1],[0,6,1],[3,7,1]],"탄소 화합물")
-, ...EXTRA_MOLECULES];
+, ...EXTRA_MOLECULES, ...ISOMER_MOLECULES];
 export function validGraph(g:Graph):boolean {
  if(!g || !Array.isArray(g.atoms) || !Array.isArray(g.bonds) || g.atoms.length>60 || g.bonds.length>100) return false;
  const ids=new Set(g.atoms.map(a=>a.id));
