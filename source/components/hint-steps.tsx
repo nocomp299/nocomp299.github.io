@@ -1,0 +1,6 @@
+'use client';
+import { ArrowRight, Check, Lightbulb, LockKeyhole } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { HINT_TITLES, hintText } from '@/lib/hints';
+import type { Molecule } from '@/lib/chemistry';
+export function HintSteps({molecule,level,onAdvance}:{molecule:Molecule;level:number;onAdvance:()=>void}){return <div className="hint-steps"><div className="hint-progress" aria-label={`힌트 ${level}/4 단계`}>{HINT_TITLES.map((_,i)=><i key={i} className={i<level?'revealed':''}/>)}</div><ol>{HINT_TITLES.map((title,i)=><li key={title} className={i<level?'revealed':'locked'}><div className="hint-step-heading"><span>{String(i+1).padStart(2,'0')}</span><strong>{title}</strong>{i<level?<Check size={15}/>:<LockKeyhole size={14}/>}</div>{i<level&&<p>{hintText(molecule,i+1)}</p>}</li>)}</ol>{level===4&&<p className="hint-map-note">연결 지도에서 숫자는 원자 번호입니다. 원자의 전체 번호 목록: {molecule.atoms.map((s,i)=>`${s}${i+1}`).join(' · ')}. 이중·삼중 결합은 연결 구조가 완성되면 자동 표시됩니다.</p>}<Button className="hint-advance" variant="secondary" disabled={level>=4} onClick={onAdvance}><Lightbulb size={16}/>{level===0?'첫 번째 힌트 열기':level>=4?'모든 힌트를 열었어요':'다음 단계 힌트 열기'}{level<4&&<ArrowRight size={16}/>}</Button></div>;}
